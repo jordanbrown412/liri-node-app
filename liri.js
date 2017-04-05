@@ -80,7 +80,17 @@ function omdb(){
 
     // Parse the body of the site and recover just the imdbRating
     // (Note: The syntax below for parsing isn't obvious. Just spend a few moments dissecting it).
-    console.log(JSON.parse(body));
+    var movieObj = JSON.parse(body);
+    // console.log(JSON.parse(body));
+    console.log(movieObj);
+    console.log(movieObj.Title);
+    console.log(movieObj.Year);
+    console.log(movieObj.imdbRating);
+    console.log(movieObj.Country);
+    console.log(movieObj.Plot);
+    console.log(movieObj.Actors);
+    console.log(movieObj.Ratings[1].Value);
+    console.log(movieObj.Ratings[1].Source);
     // console.log("The movie's rating is: " + JSON.parse(body).imdbRating);
   }
 });
