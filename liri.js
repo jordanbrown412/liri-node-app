@@ -4,27 +4,11 @@ var keys = require("./keys.js");
 var spotify = require('spotify');
 var request = require('request')
 var action = process.argv[2];
-var value = process.argv[3];
+var value = process.argv.slice(3);
 var nodeArgs = process.argv;
 var movieName = "";
 
-// Loop through all the words in the node argument
-// And do a little for-loop magic to handle the inclusion of "+"s
-for (var i = 3; i < nodeArgs.length; i++) {
 
-  if (i > 3 && i < nodeArgs.length) {
-
-    movieName += "+" + nodeArgs[i];
-
-  }
-
-  else {
-
-    movieName += nodeArgs[i];
-
-  }
-}
-console.log(movieName);
 switch (action) {
   case "my-tweets":
     tweet();
@@ -58,20 +42,37 @@ client.get('statuses/user_timeline', params, function(error, tweets, response) {
 
 
 function music(){
+  
 	spotify.search({ type: 'track', query: value }, function(err, data) {
     if ( err ) {
         console.log('Error occurred: ' + err);
         
     }else {
-    		// console.log(data.tracks.items[0].album.name);
-    		// console.log(data.tracks.items[0].artists[0].name);
-    		// console.log(data.tracks.items[0].preview_url);
-    		// console.log(data.tracks.items[0].name);
+    		console.log(data.tracks.items[0].album.name);
+    		console.log(data.tracks.items[0].artists[0].name);
+    		console.log(data.tracks.items[0].preview_url);
+    		console.log(data.tracks.items[0].name);
     }
 	});
 	};
 
 function omdb(){
+  var nodeArgs = process.argv;
+  var movieName = "";
+  for (var i = 3; i < nodeArgs.length; i++) {
+
+  if (i > 3 && i < nodeArgs.length) {
+
+    movieName += "+" + nodeArgs[i];
+
+  }
+
+  else {
+
+    movieName += nodeArgs[i];
+
+  }
+}
 	request("http://www.omdbapi.com/?t=" + movieName + "&y=&plot=short&r=json", function(error, response, body) {
 
   // If the request is successful (i.e. if the response status code is 200)
